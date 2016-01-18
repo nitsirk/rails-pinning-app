@@ -258,3 +258,10 @@ ActionView::Template::Error (undefined local variable or method `pin' for #<#<Cl
   Rendered /Users/kristinclement/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
   Rendered /Users/kristinclement/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.3ms)
   Rendered /Users/kristinclement/.rvm/gems/ruby-2.2.1/gems/web-console-2.1.2/lib/web_console/templates/index.html.erb (70.4ms)
+
+
+Started GET "/library" for ::1 at 2016-01-18 15:32:30 -0500
+Processing by PinsController#index as HTML
+  [1m[36mPin Load (0.4ms)[0m  [1mSELECT "pins".* FROM "pins"[0m
+  Rendered pins/index.erb within layouts/application (5.4ms)
+Completed 200 OK in 29ms (Views: 25.6ms | ActiveRecord: 2.3ms)
