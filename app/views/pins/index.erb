@@ -6,7 +6,9 @@
 <div class="pins">
   <% @pins.each_slice(3) do |row| %>
     <div class="row">
+
       <% row.each do |pin| %>      
+        
         <div class="pin-container col-md-4">
           <div class="pin">
             <div class="pin-header row">
@@ -21,20 +23,19 @@
 
               <div class="pin-title col-xs-9">
                 <h4>
-                  <a href="<%= pin_by_name_path(slug: pin.slug) %>">
-                    <%= "#{pin.title}" %>
-                  </a>
+                  <%= link_to "#{pin.title}", pin_name_show_path(slug: pin.slug) %>
                 </h4>
-                <a class="url" href="<%= "#{pin.url}" %>" target="_blank">
-                  <%= "#{pin.url.truncate(30)}" %>
-                </a>
+                
+                <%= link_to "#{pin.url.truncate(30)}", pin.url, html_options = {target: "_blank", class: "url"}%>
               </div>
               <hr/>
               <p class="text"><%= "#{pin.text}" %></p>
             </div>
           </div>
         </div>
+      
       <% end %>
+    
     </div>
   <% end %>
 </div>
