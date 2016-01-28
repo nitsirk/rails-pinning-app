@@ -248,7 +248,7 @@ th {
   }
   .btn > .caret,
   .dropup > .btn > .caret {
-    border-top-color: #000 !important;
+    border-top-color: #fff !important;
   }
   .label {
     border: 1px solid #000;
@@ -3039,9 +3039,10 @@ fieldset[disabled] .btn {
   box-shadow: none;
 }
 .btn-default {
-  color: #ffffff;
-  background-color: #222222;
-  border-color: #222222;
+  color: #000000;
+  background-color: #ffffff;
+  border-color: #cccccc;
+  font-weight: bold;
 }
 .btn-default:hover,
 .btn-default:focus,

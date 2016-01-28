@@ -12,5 +12,20 @@ class PinsController < ApplicationController
     @pin = Pin.find_by_slug(params[:slug])
     render :show
   end
+
+  def new
+    @pin = Pin.new
+  end
+
+  def create
+    @pin = Pin.create(pin_params)
+    redirect_to pins_path
+  end
   
+  private
+
+    def pin_params
+      params.require(:pin).permit(:title, :url, :slug, :text, :category_id)
+    end
+
 end
