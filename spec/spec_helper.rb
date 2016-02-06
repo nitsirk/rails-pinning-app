@@ -11,3 +11,7 @@ RSpec.configure do |config|
     #Rails.application.load_seed # loading seeds
   #end
 end
+
+def sample_file(filename = "sample_file.jpg")
+  File.new(Rails.root.join("spec", "#{filename}"))
+end

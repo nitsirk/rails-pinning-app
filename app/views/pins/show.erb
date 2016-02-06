@@ -12,6 +12,9 @@
   <p>
     <b>Visit <%= link_to "#{@pin.title}", @pin.url, html_options = {target: "_blank", class: "url"} %></b>
   </p>
+  <% if @pin.image.exists? %>
+    <img src="<%= @pin.image.url(:medium) %>">
+  <% end %>
 </div>
 <br/>
 <a href="/">
