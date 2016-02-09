@@ -1,0 +1,14 @@
+<h1>Hey! Who Are You?</h1>
+
+<%= form_tag "/login" do %>
+  <input id="email" name="email" type="email" placeholder="email@example.com" />
+  <input class="masked_input_field" id="password" name="password" type="password" placeholder="password" />
+  <input name="commit" type="submit" value="Login" />
+
+  <% if @errors %>
+    <div class="error">
+      <label>An invalid email address or password prohibited this user from logging in.</label>
+    </div>
+  <% end %>
+
+<% end %>
