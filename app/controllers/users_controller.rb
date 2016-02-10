@@ -65,12 +65,15 @@ class UsersController < ApplicationController
   end
 
   def authenticate
-    @user = User.authenticate(params[:email], params[:password])
+    email = params[:email]
+    password = params[:password]
+    @user = User.authenticate(email, password)
     if @user.nil?
       @errors = true
       render :login
     else
-      redirect_to user_path(@user.id)
+      session[:user_id] = @user.id
+      redirect_to user_path(@user)
     end
   end
 
