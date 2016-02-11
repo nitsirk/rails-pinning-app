@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   get '/login' => "users#login"
 
   post '/login' => "users#authenticate"
+
+  delete 'logout/:id' => "users#logout", as: :logout
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

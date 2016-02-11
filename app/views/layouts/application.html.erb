@@ -10,9 +10,16 @@
 <body>
   <div class="container">
     <div class="pull-right">
-      <h3>
-        <%= "Hi, session[:user_id]!" %>
-      </h3>
+      <% if !current_user.nil? %>
+        <h3>
+          <%= "Hi, #{current_user.first_name} #{current_user.last_name}!" %>
+          <%= link_to "Logout", logout_path(current_user), method: :delete %>
+        </h3>
+      <% else %>
+        <h3>
+          Psst, you should <%= link_to('login', login_path, html_options = {class: 'url'}) %>!
+        </h3>
+      <% end %>
     </div>
     <%= yield %>
   </div>
