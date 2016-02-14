@@ -1,5 +1,15 @@
 require 'spec_helper'
 RSpec.describe PinsController do
+  before(:each) do
+    @user = FactoryGirl.create(:user)
+    login(@user)
+  end
+
+  after(:each) do
+    if !@user.destroyed?
+      @user.destroy
+    end
+  end
 
   describe "GET index" do
     it 'renders the index template' do
@@ -7,9 +17,15 @@ RSpec.describe PinsController do
       expect(response).to render_template("index")
     end
 
-    it 'populates @pins with all pins' do
+    it 'populates @pins with all pins associated with user' do
       get :index
-      expect(assigns[:pins]).to eq(Pin.all)
+      expect(assigns[:pins]).to eq(Pin.where(user_id: @user.id))
+    end
+
+    it 'logouts the user' do
+      logout(@user)
+      get :index
+      expect(response).to redirect_to(:login)
     end
   end
 
@@ -27,6 +43,12 @@ RSpec.describe PinsController do
     it 'assigns an instance variable to a new pin' do
       get :new
       expect(assigns(:pin)).to be_a_new(Pin)
+    end
+
+    it 'logs out the user' do
+      logout(@user)
+      get :new
+      expect(response).to redirect_to(:login)
     end
   end
   
@@ -81,6 +103,11 @@ RSpec.describe PinsController do
       expect(assigns[:errors].present?).to be(true)
     end    
     
+    it 'logouts the user' do
+      logout(@user)
+      get :create
+      expect(response).to redirect_to(:login)
+    end
   end
 
   describe "GET edit" do
@@ -113,17 +140,17 @@ RSpec.describe PinsController do
       get :edit, id: @edit_pin.id
       expect(assigns(:pin)).to eq(@edit_pin)
     end
+
+    it 'logouts the user' do
+      logout(@user)
+      get :edit, id: @edit_pin.id
+      expect(response).to redirect_to(:login)
+    end
   end
 
   describe "POST update" do
     before(:each) do
-      @update_pin_hash = { 
-        title: "Rails Wizard", 
-        url: "http://railswizard.org", 
-        slug: "rails-wizard-update", 
-        text: "A fun and helpful Rails Resource",
-        category_id: 2}  
-        @update_pin = Pin.create(@update_pin_hash)
+        @update_pin = FactoryGirl.create(:pin)#Pin.create(@update_pin_hash)
     end
 
 
@@ -140,6 +167,11 @@ RSpec.describe PinsController do
      #get :update
      #expect(assigns[:pins]).to eq(Pin.all)
     #end
+    it 'logouts the user' do
+      logout(@user)
+      post :update, id: @update_pin
+      expect(response).to redirect_to(:login)
+    end
   end
 
 end

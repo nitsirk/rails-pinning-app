@@ -6,10 +6,12 @@ class UsersController < ApplicationController
   def index
     @users = User.all
   end
-
+   
   # GET /users/1
   # GET /users/1.json
   def show
+    @user = User.includes(:pins).find(current_user.id)
+    @pins = @user.pins
   end
 
   # GET /users/new
@@ -86,11 +88,5 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(:first_name, :last_name, :email, :password)
-    end
-
-    def require_login
-      if current_user.nil?
-        redirect_to login_path
-      end
     end
 end

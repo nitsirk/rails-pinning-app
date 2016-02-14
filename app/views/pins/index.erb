@@ -29,9 +29,14 @@
                 </h4>
                 
                 <%= link_to "#{pin.url.truncate(30)}", pin.url, html_options = {target: "_blank", class: "url"}%>
+                
               </div>
               <hr/>
               <p class="text"><%= "#{pin.text}" %></p>
+              <%= link_to repin_path(pin), class: "btn btn-default pull-right", method: "post" do %>
+                  <i class="fa fa-thumb-tack"></i>
+                  Repin!
+                <% end %>
             </div>
           </div>
         </div>

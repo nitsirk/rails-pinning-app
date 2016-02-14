@@ -15,7 +15,18 @@
   <% if @pin.image.exists? %>
     <img src="<%= @pin.image.url(:medium) %>">
   <% end %>
+  <h3>
+    This pin has been pinned by:
+  </h3>
+  <% @pin.users.each do |user| %>
+    <%= "#{user.first_name} #{user.last_name}" %><br/>
+  <% end %>
 </div>
+<br/>
+<a href="/">
+  <i class="fa fa-thumb-tack"></i>
+  Repin!
+</a>
 <br/>
 <a href="/">
   <i class="fa fa-chevron-left"></i>
