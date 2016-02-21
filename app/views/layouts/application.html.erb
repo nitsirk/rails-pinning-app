@@ -6,19 +6,51 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 </head>
 <body>
   <div class="container">
     <div class="pull-right">
-      <% if session.key?(:user_id) %>
-        <h3>
-          <%= "Hi, #{current_user.first_name} #{current_user.last_name}!" %>
-          <%= link_to "Logout", logout_path(current_user), method: :delete %>
-        </h3>
-      <% else %>
-        <h3>
-          Psst, you should <%= link_to('login', login_path, html_options = {class: 'url'}) %>!
-        </h3>
+      <% if logged_in? %>
+        <div class="dropdown">
+        <button id="dropdownMenu1" class="btn btn-default pull-right dropdown-toggle" type="button" data-toggle="dropdown">
+        <%= "#{current_user.first_name}" %>
+        </button>
+ 
+        <ul class="dropdown-menu dropdown-menu-right">
+          <li role="presentation">
+            <%= link_to "All Boards", boards_path, "role" => "menuitem", "tabindex" => "-1" %>
+          </li>
+          <% current_user.boards.each do |board| %>
+            <li role="presentation">
+              <a role="menuitem" tabindex="-1" href="<%=board_path(board.id) %>"><%= "#{board.name}" %></a></li>
+          <% end %>
+          
+          <li role="presentation" class="divider"></li>
+            <li role="presentation">
+              <%= link_to "Add a Pin", new_pin_path, "role" => "menuitem", "tabindex" => "-1" %>
+            </li>
+          <li role="presentation">
+            <%= link_to "Add a Board", new_board_path, "role" => "menuitem", "tabindex" => "-1" %>
+          </li>
+          <li role="presentation" class="divider"></li>
+          <li role="presentation">
+            <%= link_to "Follow A User", new_follower_path, "role" => "menuitem", "tabindex" => "-1" %>
+          </li>
+          <li role="presentation">
+            <%= link_to "People You Follow", followers_path, "role" => "menuitem", "tabindex" => "-1" %>
+          </li>
+          <li role="presentation" class="divider"></li>
+          <li role="presentation">
+            <%= link_to "Home", root_path, "role" => "menuitem", "tabindex" => "-1" %>
+          </li>
+          <li role="presentation">
+            <%= link_to "Logout", logout_path(current_user), :method => :delete, "role" => "menuitem", "tabindex" => "-1" %>
+          </li>
+        </ul>
+ 
+        </div>
       <% end %>
     </div>
     <%= yield %>

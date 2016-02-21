@@ -2,7 +2,7 @@ class PinsController < ApplicationController
   before_action :require_login, except: [:show, :show_by_name]
   
   def index
-    @pins = Pin.all
+    @pins = current_user.pins
   end
   
   def show
@@ -51,6 +51,17 @@ class PinsController < ApplicationController
     @pin = Pin.find(params[:id])
     @pin.pinnings.create(user: current_user)
     redirect_to user_path(current_user)
+  end
+
+  # DELETE /users/1
+  # DELETE /users/1.json
+  def destroy
+    @pin = Pin.find(params[:id])
+    @pin.destroy
+    respond_to do |format|
+      format.html { redirect_to pins_url, notice: 'Pin was successfully destroyed.' }
+      format.json { head :no_content }
+    end
   end
   
   private

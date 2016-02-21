@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Followers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th colspan="1"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @followed.each do |follower| %>
+      <tr>
+        <td><%= follower.full_name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<b><%= link_to 'New Follower', new_follower_path %></b>

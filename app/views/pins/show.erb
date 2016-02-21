@@ -5,30 +5,12 @@
   </h1>
 </div>
 
-<div class="show-pin">
-  <p><%= "#{@pin.text}" %></p>
+<%= render partial: "shared/repin_form", locals: {pin: @pin} %>
 
-  <hr/>
-  <p>
-    <b>Visit <%= link_to "#{@pin.title}", @pin.url, html_options = {target: "_blank", class: "url"} %></b>
-  </p>
-  <% if @pin.image.exists? %>
-    <img src="<%= @pin.image.url(:medium) %>">
-  <% end %>
-  <h3>
-    This pin has been pinned by:
-  </h3>
-  <% @pin.users.each do |user| %>
-    <%= "#{user.first_name} #{user.last_name}" %><br/>
-  <% end %>
-</div>
-<br/>
-<a href="/">
-  <i class="fa fa-thumb-tack"></i>
-  Repin!
-</a>
 <br/>
 <a href="/">
   <i class="fa fa-chevron-left"></i>
   Back to Home
 </a>
+<br/>
+<%= link_to 'Destroy', @pin, method: :delete, data: { confirm: 'Are you sure?' } %>

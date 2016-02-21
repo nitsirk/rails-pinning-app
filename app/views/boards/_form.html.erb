@@ -1,0 +1,30 @@
+<%= form_for(@board) do |f| %>
+  <% if @board.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@board.errors.count, "error") %> prohibited this board from being saved:</h2>
+
+      <ul>
+      <% @board.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% if !@followers.nil? %>
+    <div class="form-group">
+      <%= select_tag "board[board_pinners_attributes][0][user_id]", options_from_collection_for_select(@followers, :id, :full_name), class: "form-control", include_blank: true %>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+  <%= f.hidden_field :user_id, value: current_user.id %>
+
+<% end %>

@@ -43,6 +43,13 @@
     </div>
   <% end %>
 
-    <%= f.hidden_field :user_id, value: current_user.id %>
+  <%= f.fields_for :pinning do |p| %>
+    <div class="form-group">
+      <label>Which board?</label>
+      <%= p.collection_select(:board_id, current_user.pinnable_boards, :id, :name, {}, {class: "form-control"}) %>
+      <%= p.hidden_field :user_id, value: current_user.id %>
+  <% end %>
+
+  <%= f.hidden_field :user_id, value: current_user.id %>
 
 <% end %>

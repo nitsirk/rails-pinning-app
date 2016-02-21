@@ -7,6 +7,7 @@ RSpec.describe PinsController do
 
   after(:each) do
     if !@user.destroyed?
+      @user.boards.destroy_all
       @user.destroy
     end
   end
@@ -19,7 +20,7 @@ RSpec.describe PinsController do
 
     it 'populates @pins with all pins associated with user' do
       get :index
-      expect(assigns[:pins]).to eq(Pin.where(user_id: @user.id))
+      expect(assigns[:pins]).to eq(@user.pins)
     end
 
     it 'logouts the user' do
