@@ -1,8 +1,9 @@
 require 'spec_helper'
 RSpec.describe PinsController do
   before(:each) do
-    @user = FactoryGirl.create(:user)
+    @user = FactoryGirl.create(:user_with_boards)
     login(@user)
+    @board_pinner = BoardPinner.create(user: @user, board: FactoryGirl.create(:board))
   end
 
   after(:each) do
@@ -51,6 +52,13 @@ RSpec.describe PinsController do
       get :new
       expect(response).to redirect_to(:login)
     end
+
+    #the last lesson got even more confusing so i stopped at step 7 with the test below. i didn't continue with the lesson
+    #and deployed to heroku/screenshot my terminal
+    #it 'assigns @pinnable_boards to all pinnable boards' do
+      #get :new
+      #expect(assigns()).to 
+    #end
   end
   
   describe "POST create" do

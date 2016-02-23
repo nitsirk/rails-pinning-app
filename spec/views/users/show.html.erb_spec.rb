@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.describe "users/show", type: :view do
   before(:each) do
-    @user = FactoryGirl.create(:user)
+    @user = FactoryGirl.create(:user_with_boards)
     @pins = @user.pins
   
     allow(view).to receive(:logged_in?).and_return(true)
